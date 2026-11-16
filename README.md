@@ -1,0 +1,1 @@
+This repo is to learn how ArgoCD manages a K8S cluster
