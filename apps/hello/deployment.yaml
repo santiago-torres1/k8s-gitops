@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+spec:
+  replicas: 3
+  selector:
+    matchLabels: { app: hello }
+  template:
+    metadata:
+      labels: { app: hello }
+    spec:
+      containers:
+      - name: web
+        image: nginx:1.27-alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: content
+          mountPath: /usr/share/nginx/html
+        readinessProbe:
+          httpGet: { path: /healthz, port: 80 }
+          periodSeconds: 5
+        livenessProbe:
+          httpGet: { path: /healthz, port: 80 }
+          periodSeconds: 10
+        resources:
+          requests: { cpu: 50m, memory: 64Mi }
+          limits:   { cpu: 200m, memory: 128Mi }
+      volumes:
+      - name: content
+        configMap:
+          name: hello-config
