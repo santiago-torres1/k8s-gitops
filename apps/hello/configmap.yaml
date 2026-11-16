@@ -4,5 +4,5 @@ metadata:
   name: hello-config
 data:
   index.html: |
-    <h1>Deployed by ArgoCD - v1</h1>
+    <h1>Deployed by ArgoCD - v2</h1>
   healthz: "ok"
