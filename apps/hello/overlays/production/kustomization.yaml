@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: hello-prod
+resources:
+  - ../../base
+images:
+  - name: nginx
+    newTag: 1.27-alpine         # production stays on the proven version
+replicas:
+  - name: hello
+    count: 3
+configMapGenerator:
+  - name: hello-config
+    behavior: merge
+    files:
+      - index.html
+patches:
+  - path: resources.yaml

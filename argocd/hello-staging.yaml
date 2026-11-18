@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-staging
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io   # deleting the app now deletes its resources
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/santiago-torres1/k8s-gitops.git
+    targetRevision: main
+    path: apps/hello/overlays/staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: hello-staging
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [CreateNamespace=true]
