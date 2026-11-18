@@ -8,12 +8,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/<your-username>/k8s-gitops.git
+    repoURL: https://github.com/santiago-torres1/k8s-gitops.git
     targetRevision: main
     path: apps/hello/overlays/production
   destination:
     server: https://kubernetes.default.svc
-    namespace: hello-production
+    namespace: hello-prod
   syncPolicy:
     automated: { prune: true, selfHeal: true }
     syncOptions: [CreateNamespace=true]
